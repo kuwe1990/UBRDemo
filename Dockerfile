@@ -3,7 +3,7 @@
 # Installer image
 
 #FROM mcr.microsoft.com/windows/servercore:1809-amd64
-FROM onepubtestacrdev.azurecr.io/internal/private/windows/servercore:1803-amd64
+FROM onepubtestacrdev.azurecr.io/internal/private/windows/servercore:2004-amd64
 
 #RUN echo reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > C:\\UBR.txt
 RUN echo reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > C:\\UBR.txt `
