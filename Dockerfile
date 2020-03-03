@@ -3,7 +3,7 @@
 # Installer image
 
 # pull images when update.
-FROM mcr.microsoft.com/windows/iotcore:1809-amd64
+FROM mcr.microsoft.com/windows/nanoserver:1809-arm32v7
 RUN echo reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v UBR > %ubr% `
 echo reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > %currentVersion% `
 Invoke-RestMethod -Method Get -URI https://mcr.microsoft.com/v2/windows/nanoserver/manifests/1903-amd64 > %response% `
