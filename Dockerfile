@@ -1,17 +1,31 @@
 ﻿# escape=`
 #RS5 Servercore 
 # Installer image
-
 # pull images when update.
-FROM mcr.microsoft.com/windows/nanoserver:1809-arm32v7
-RUN echo reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v UBR > %ubr% `
-echo reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > %currentVersion% `
-Invoke-RestMethod -Method Get -URI https://mcr.microsoft.com/v2/windows/nanoserver/manifests/1903-amd64 > %response% `
-%response% > C:\\UBR.txt
+FROM mcr.microsoft.com/windows/servercore:1809-amd64
+RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v UBR > runTimeUBR && `
+reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion
 
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+ENV ASPNETCORE_VERSION 2.2.5
+RUN ([regex]::match($(Get-Content -Path runTimeUBR), '0[xX][0-9a-fA-F]+')).Value > realRunTime
+RUN ([regex]::match($(Get-Content -Path runTimeVersion), '0[xX][0-9a-fA-F]+')).Value > realRunTimeVersion
+RUN Invoke-RestMethod -Method Get -URI https://mcr.microsoft.com/v2/windows/nanoserver/manifests/1903-amd64 -UseBasicParsing -OutFile configValue
+RUN 'Bearer ' + $(Invoke-RestMethod -Method Post -URI https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/token -BODY @{grant_type = 'client_credentials'; resource = '1081c354-1883-40b9-96b0-4018a40b834d'; client_id = '4b0bab30-625c-4af4-8f5e-5deaa4a00b2a'; client_secret = 'U94dHphmG5TniopvJjJuxOHaPYO/nyVujfvAU+2osyo='}).access_token > C:\authToken
+#RUN Get-Content -Path C:\authToken > C:\Content
+RUN Invoke-RestMethod -Method Get -Uri "https://onepubng-dev.azure-api.net/MediaRefreshServiceFabric/DocumentManagerSFSvc/ReleaseDocument/Get?id=8e896366-949a-4e9e-b3cd-d4d3e3b0c7a5" -Headers @{Authorization=$(Get-Content -Path C:\authToken)} -ContentType "application/json" -UseBasicParsing
 
+#$(Get-Content -Path C:\authToken)
 
+#RUN powershell.exe -Command Invoke-RestMethod -Method Post -Uri "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/token" -Body @{grant_type = "client_credentials"; resource #= "1081c354-1883-40b9-96b0-4018a40b834d"; client_id = "4b0bab30-625c-4af4-8f5e-5deaa4a00b2a"; client_secret = "U94dHphmG5TniopvJjJuxOHaPYO/nyVujfvAU+2osyo="} 
 
+#LABEL Description="IIS" Vendor="Microsoft" Version="10"
+#RUN powershell -Command Add-WindowsFeature Web-Server
+#echo %ubr% > C:\UBR.txt
+#%response% > C:\\UBR.txt `
+#$token = Invoke-RestMethod -Method Post -Uri "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/token" -Body '{grant_type = "client_credentials"; resource = "1081c354-1883-40b9-96b0-4018a40b834d"; client_id = "4b0bab30-625c-4af4-8f5e-5deaa4a00b2a"; client_secret = "U94dHphmG5TniopvJjJuxOHaPYO/nyVujfvAU+2osyo="}' > %BearToken% `
+#%BearToken.access_token% > %Header% `
+#Invoke-RestMethod -Method Get -Uri "https://onepubng-dev.azure-api.net/MediaRefreshServiceFabric/DocumentManagerSFSvc/ReleaseDocument/Get?id=8e896366-949a-4e9e-b3cd-d4d3e3b0c7a5" -Headers %Header% #-ContentType "application/json" -UseBasicParsing > C:\ReleaseDocument.txt
 
 #$username = "OnePubTestAcrDev";
 #$password = ConvertTo-SecureString –String "" –AsPlainText -Force
