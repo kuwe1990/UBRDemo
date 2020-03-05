@@ -1,0 +1,5 @@
+version: v1.1.0
+steps:
+# Replace mybaseregistry with the name of your registry containing the base image
+  - build: -t $Registry/hello-world:$ID  https://github.com/kuwe1990/UBRDemo.git -f Dockerfile --build-arg REGISTRY_NAME=onepubtestacrdev.azurecr.io
+  - push: ["$Registry/hello-world:$ID"]
