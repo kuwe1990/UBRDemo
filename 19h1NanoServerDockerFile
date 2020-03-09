@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore:1903
+FROM mcr.microsoft.com/windows/servercore:1903-amd64
 ARG CERT
 ARG CONFIGURL
 # generate runtime currentVersion & UBR.
