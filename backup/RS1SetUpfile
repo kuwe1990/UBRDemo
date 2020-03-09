@@ -1,8 +1,0 @@
-windows/servercore:ltsc2016,windows/servercore/manifests/ltsc2016,Windows 10 1607,14393,3443,RS1
-windows/servercore:1607,windows/servercore/manifests/1607,Windows 10 1607,14393,3443,RS1
-windows/servercore:1607-KB4534271,windows/servercore/manifests/1607-KB4534271,Windows 10 1607,14393,3443,RS1
-windows/servercore:10.0.14393.3443,windows/servercore/manifests/10.0.14393.3443,Windows 10 1607,14393,3443,RS1
-windows/servercore:ltsc2016-amd64,windows/servercore/manifests/ltsc2016-amd64,Windows 10 1607,14393,3443,RS1
-windows/servercore:1607-amd64,windows/servercore/manifests/1607-amd64,Windows 10 1607,14393,3443,RS1
-windows/servercore:1607-KB4534271-amd64,windows/servercore/manifests/1607-KB4534271-amd64,Windows 10 1607,14393,3443,RS1
-windows/servercore:10.0.14393.3443-amd64,windows/servercore/manifests/10.0.14393.3443-amd64,Windows 10 1607,14393,3443,RS1
