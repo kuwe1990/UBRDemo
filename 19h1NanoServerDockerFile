@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/nanoserver:1903
+FROM mcr.microsoft.com/windows/servercore:1903
 ARG CERT
 ARG CONFIGURL
 # generate runtime currentVersion & UBR.
@@ -23,7 +23,7 @@ RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_u
 # trigger container validation.
 RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
-FROM mcr.microsoft.com/windows/nanoserver:1903-KB4528760
+FROM mcr.microsoft.com/windows/servercore:1903-KB4528760
 ARG CERT
 ARG CONFIGURL
 # generate runtime currentVersion & UBR.
@@ -48,7 +48,7 @@ RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_u
 # trigger container validation.
 RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
-FROM mcr.microsoft.com/windows/nanoserver:10.0.18362.592
+FROM mcr.microsoft.com/windows/servercore:10.0.18362.592
 ARG CERT
 ARG CONFIGURL
 # generate runtime currentVersion & UBR.
@@ -73,7 +73,7 @@ RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_u
 # trigger container validation.
 RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
-FROM mcr.microsoft.com/windows/nanoserver:1903-amd64
+FROM mcr.microsoft.com/windows/servercore:1903-amd64
 ARG CERT
 ARG CONFIGURL
 # generate runtime currentVersion & UBR.
@@ -98,7 +98,7 @@ RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_u
 # trigger container validation.
 RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
-FROM mcr.microsoft.com/windows/nanoserver:1903-KB4528760
+FROM mcr.microsoft.com/windows/servercore:1903-KB4528760
 ARG CERT
 ARG CONFIGURL
 # generate runtime currentVersion & UBR.
@@ -123,7 +123,7 @@ RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_u
 # trigger container validation.
 RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
-FROM mcr.microsoft.com/windows/nanoserver:10.0.18362.592-amd64
+FROM mcr.microsoft.com/windows/servercore:10.0.18362.592-amd64
 ARG CERT
 ARG CONFIGURL
 # generate runtime currentVersion & UBR.
