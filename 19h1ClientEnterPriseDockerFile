@@ -21,7 +21,7 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion='18362'; runTimeUbr='592'; product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
 FROM mcr.microsoft.com/windows:1903-KB4528760
 ARG CERT
@@ -46,7 +46,7 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion='18362'; runTimeUbr='592'; product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
 FROM mcr.microsoft.com/windows:10.0.18362.592
 ARG CERT
@@ -71,7 +71,7 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion='18362'; runTimeUbr='592'; product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
 FROM mcr.microsoft.com/windows:1903-amd64
 ARG CERT
@@ -96,7 +96,7 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion='18362'; runTimeUbr='592'; product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
 FROM mcr.microsoft.com/windows:1903-KB4528760-amd64
 ARG CERT
@@ -121,7 +121,7 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion='18362'; runTimeUbr='592'; product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
 FROM mcr.microsoft.com/windows:10.0.18362.592-amd64
 ARG CERT
@@ -146,5 +146,5 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion='18362'; runTimeUbr='592'; product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
