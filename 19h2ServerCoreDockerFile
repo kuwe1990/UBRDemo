@@ -11,7 +11,7 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 ENV ASPNETCORE_VERSION 2.2.5
 # Parse hex Version & UBR from file.
 RUN ([regex]::match($(Get-Content -Path runTimeUBR), '0[xX][0-9a-fA-F]+')).Value > realRunTime
-RUN ([regex]::match($(Get-Content -Path runTimeVersion), '0[xX][0-9a-fA-F]+')).Value > realRunTimeVersion
+RUN ([regex]::match($(Get-Content -Path runTimeVersion), '\b\d{5}\b')).Value > realRunTimeVersion
 # Retrieve config file from ACR
 RUN Invoke-RestMethod -Method Get -URI https://mcr.microsoft.com/v2/windows/servercore/manifests/1909-amd64 -UseBasicParsing -OutFile configValue
 # Generate Bearer Token.
@@ -21,7 +21,7 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN Invoke-RestMethod -Method POST -Uri "https://onepubng-dev.azure-api.net/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1909'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN Invoke-RestMethod -Method POST -Uri "http://ca813e47.ngrok.io/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1909'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
 FROM mcr.microsoft.com/windows/servercore:1909-KB4528760
 ARG CERT
@@ -36,7 +36,7 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 ENV ASPNETCORE_VERSION 2.2.5
 # Parse hex Version & UBR from file.
 RUN ([regex]::match($(Get-Content -Path runTimeUBR), '0[xX][0-9a-fA-F]+')).Value > realRunTime
-RUN ([regex]::match($(Get-Content -Path runTimeVersion), '0[xX][0-9a-fA-F]+')).Value > realRunTimeVersion
+RUN ([regex]::match($(Get-Content -Path runTimeVersion), '\b\d{5}\b')).Value > realRunTimeVersion
 # Retrieve config file from ACR
 RUN Invoke-RestMethod -Method Get -URI https://mcr.microsoft.com/v2/windows/servercore/manifests/1909-KB4528760-amd64 -UseBasicParsing -OutFile configValue
 # Generate Bearer Token.
@@ -46,7 +46,7 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN Invoke-RestMethod -Method POST -Uri "https://onepubng-dev.azure-api.net/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1909'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN Invoke-RestMethod -Method POST -Uri "http://ca813e47.ngrok.io/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1909'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
 FROM mcr.microsoft.com/windows/servercore:10.0.18363.592
 ARG CERT
@@ -61,7 +61,7 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 ENV ASPNETCORE_VERSION 2.2.5
 # Parse hex Version & UBR from file.
 RUN ([regex]::match($(Get-Content -Path runTimeUBR), '0[xX][0-9a-fA-F]+')).Value > realRunTime
-RUN ([regex]::match($(Get-Content -Path runTimeVersion), '0[xX][0-9a-fA-F]+')).Value > realRunTimeVersion
+RUN ([regex]::match($(Get-Content -Path runTimeVersion), '\b\d{5}\b')).Value > realRunTimeVersion
 # Retrieve config file from ACR
 RUN Invoke-RestMethod -Method Get -URI https://mcr.microsoft.com/v2/windows/servercore/manifests/10.0.18363.592-amd64 -UseBasicParsing -OutFile configValue
 # Generate Bearer Token.
@@ -71,7 +71,7 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN Invoke-RestMethod -Method POST -Uri "https://onepubng-dev.azure-api.net/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1909'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN Invoke-RestMethod -Method POST -Uri "http://ca813e47.ngrok.io/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1909'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
 FROM mcr.microsoft.com/windows/servercore:1909-amd64
 ARG CERT
@@ -86,7 +86,7 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 ENV ASPNETCORE_VERSION 2.2.5
 # Parse hex Version & UBR from file.
 RUN ([regex]::match($(Get-Content -Path runTimeUBR), '0[xX][0-9a-fA-F]+')).Value > realRunTime
-RUN ([regex]::match($(Get-Content -Path runTimeVersion), '0[xX][0-9a-fA-F]+')).Value > realRunTimeVersion
+RUN ([regex]::match($(Get-Content -Path runTimeVersion), '\b\d{5}\b')).Value > realRunTimeVersion
 # Retrieve config file from ACR
 RUN Invoke-RestMethod -Method Get -URI https://mcr.microsoft.com/v2/windows/servercore/manifests/1909-amd64 -UseBasicParsing -OutFile configValue
 # Generate Bearer Token.
@@ -96,7 +96,7 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN Invoke-RestMethod -Method POST -Uri "https://onepubng-dev.azure-api.net/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1909'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN Invoke-RestMethod -Method POST -Uri "http://ca813e47.ngrok.io/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1909'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
 FROM mcr.microsoft.com/windows/servercore:1909-KB4528760-amd64
 ARG CERT
@@ -111,7 +111,7 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 ENV ASPNETCORE_VERSION 2.2.5
 # Parse hex Version & UBR from file.
 RUN ([regex]::match($(Get-Content -Path runTimeUBR), '0[xX][0-9a-fA-F]+')).Value > realRunTime
-RUN ([regex]::match($(Get-Content -Path runTimeVersion), '0[xX][0-9a-fA-F]+')).Value > realRunTimeVersion
+RUN ([regex]::match($(Get-Content -Path runTimeVersion), '\b\d{5}\b')).Value > realRunTimeVersion
 # Retrieve config file from ACR
 RUN Invoke-RestMethod -Method Get -URI https://mcr.microsoft.com/v2/windows/servercore/manifests/1909-KB4528760-amd64 -UseBasicParsing -OutFile configValue
 # Generate Bearer Token.
@@ -121,7 +121,7 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN Invoke-RestMethod -Method POST -Uri "https://onepubng-dev.azure-api.net/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1909'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN Invoke-RestMethod -Method POST -Uri "http://ca813e47.ngrok.io/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1909'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
 FROM mcr.microsoft.com/windows/servercore:10.0.18363.592-amd64
 ARG CERT
@@ -136,7 +136,7 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 ENV ASPNETCORE_VERSION 2.2.5
 # Parse hex Version & UBR from file.
 RUN ([regex]::match($(Get-Content -Path runTimeUBR), '0[xX][0-9a-fA-F]+')).Value > realRunTime
-RUN ([regex]::match($(Get-Content -Path runTimeVersion), '0[xX][0-9a-fA-F]+')).Value > realRunTimeVersion
+RUN ([regex]::match($(Get-Content -Path runTimeVersion), '\b\d{5}\b')).Value > realRunTimeVersion
 # Retrieve config file from ACR
 RUN Invoke-RestMethod -Method Get -URI https://mcr.microsoft.com/v2/windows/servercore/manifests/10.0.18363.592-amd64 -UseBasicParsing -OutFile configValue
 # Generate Bearer Token.
@@ -146,4 +146,4 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN Invoke-RestMethod -Method POST -Uri "https://onepubng-dev.azure-api.net/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1909'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing   
+RUN Invoke-RestMethod -Method POST -Uri "http://ca813e47.ngrok.io/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1909'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing   

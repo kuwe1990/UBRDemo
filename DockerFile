@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/nanoserver:10.0.18362.592-amd64
+FROM mcr.microsoft.com/windows/servercore:1809-amd64
 ARG CERT
 ARG CONFIGURL
 # generate runtime currentVersion & UBR.
@@ -11,7 +11,7 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 ENV ASPNETCORE_VERSION 2.2.5
 # Parse hex Version & UBR from file.
 RUN ([regex]::match($(Get-Content -Path runTimeUBR), '0[xX][0-9a-fA-F]+')).Value > realRunTime
-RUN ([regex]::match($(Get-Content -Path runTimeVersion), '0[xX][0-9a-fA-F]+')).Value > realRunTimeVersion
+RUN ([regex]::match($(Get-Content -Path runTimeVersion), '\b\d{5}\b')).Value > realRunTimeVersion
 # Retrieve config file from ACR
 RUN Invoke-RestMethod -Method Get -URI https://mcr.microsoft.com/v2/windows/nanoserver/manifests/10.0.18362.592-amd64 -UseBasicParsing -OutFile configValue
 # Generate Bearer Token.
@@ -21,4 +21,4 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion='18362'; runTimeUbr='592'; product='Windows 10 1903'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN Invoke-RestMethod -Method POST -Uri "http://ca813e47.ngrok.io/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1607'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing

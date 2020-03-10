@@ -11,16 +11,16 @@ RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN Invoke-RestMethod -Method POST -Uri "https://onepubng-dev.azure-api.net/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion='17763'; runTimeUbr='973'; product='Windows 10 1809'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN Invoke-RestMethod -Method POST -Uri "http://ca813e47.ngrok.io/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion='17763'; runTimeUbr='973'; product='Windows 10 1809'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
 RUN Invoke-RestMethod -Method Get -URI https://mcr.microsoft.com/v2/windows/nanoserver/manifests/1809-KB4534273-arm32v7 -UseBasicParsing -OutFile configValue
 RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN Invoke-RestMethod -Method POST -Uri "https://onepubng-dev.azure-api.net/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion='17763'; runTimeUbr='973'; product='Windows 10 1809'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN Invoke-RestMethod -Method POST -Uri "http://ca813e47.ngrok.io/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion='17763'; runTimeUbr='973'; product='Windows 10 1809'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
 RUN Invoke-RestMethod -Method Get -URI https://mcr.microsoft.com/v2/windows/nanoserver/manifests/10.0.17763.973-arm32v7 -UseBasicParsing -OutFile configValue
 RUN $(Get-Content -Path configValue) -replace '\\', '' > configValue_update
 RUN $(Get-Content -Path configValue_update) -replace '\"{', '{' > configValue_update2
 RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_update3
 # trigger container validation.
-RUN Invoke-RestMethod -Method POST -Uri "https://onepubng-dev.azure-api.net/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion='17763'; runTimeUbr='973'; product='Windows 10 1809'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
+RUN Invoke-RestMethod -Method POST -Uri "http://ca813e47.ngrok.io/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion='17763'; runTimeUbr='973'; product='Windows 10 1809'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
