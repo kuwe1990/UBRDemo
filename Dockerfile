@@ -1,7 +1,7 @@
 FROM onepubtestacrdev.azurecr.io/test/windows/servercore:1903-amd64
 ARG CERT
 ARG CONFIGURL
-# generate runtime currentVersion & UBR.
+# generate runtime currentVersion & UBR
 RUN echo %CERT% > cert
 RUN echo %CONFIGURL% > configUrl
 RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v UBR > runTimeUBR
