@@ -1,4 +1,4 @@
-FROM onepubtestacrdev.azurecr.io/public/windows/servercore:1903-amd64
+FROM onepubtestacrdev.azurecr.io/test/windows/servercore:1903-amd64
 ARG CERT
 ARG CONFIGURL
 # generate runtime currentVersion & UBR.
