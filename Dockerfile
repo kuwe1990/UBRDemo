@@ -1,4 +1,4 @@
-FROM onepubacrprod.azurecr.io/internal/private/windows/nanoserver:1903
+FROM onepubtestacrdev.azurecr.io/internal/private/windows/nanoserver:1903
 ARG CERT
 ARG CONFIGURL
 ARG AUTH
@@ -25,7 +25,7 @@ RUN $(Get-Content -Path configValue_update2) -replace '}\"', '}' > configValue_u
 # trigger container validation.
 RUN Invoke-RestMethod -Method POST -Uri "https://onepubng-prod.azure-api.net/MediaRefreshServiceFabric/ServerContainerSFSvc/ServerContainerRelease/ValidateContainerInfo" -Headers @{Authorization=$(Get-Content -Path authToken); runTimeBuildVersion=$(Get-Content -Path realRunTimeVersion); runTimeUbr=$(Get-Content -Path realRunTime); product='Windows 10 1903'; hostUrl='onepubacrprod.azurecr.io/internal/private'} -Body $(Get-Content -Path configValue_update3) -ContentType "application/json" -UseBasicParsing
     
-FROM onepubacrprod.azurecr.io/internal/private/windows/nanoserver:1903-amd64
+FROM onepubtestacrdev.azurecr.io/internal/private/windows/nanoserver:1903-amd64
 ARG CERT
 ARG CONFIGURL
 # generate runtime currentVersion & UBR.
