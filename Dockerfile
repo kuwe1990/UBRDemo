@@ -4,9 +4,9 @@ ARG AUTH
 # generate runtime currentVersion & UBR.
 RUN echo %CERT% > cert
 RUN echo %AUTH% > authValue
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v UBR > runTimeUBR
 RUN reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild > runTimeVersion
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 # Retrieve .NET Core SDK
 RUN 'Basic ' + $(Get-Content -Path authValue) > auth
 # Parse hex Version & UBR from file.
